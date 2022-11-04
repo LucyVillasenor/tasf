@@ -30,6 +30,8 @@ var validarUsuario = function(){
 }
 
 var getVenta = function(){
+    let tbodyContainer = document.querySelector(".tablecontainer");
+    let totales= document.querySelector(".totales");
     var inputFolio = document.getElementById("folioVenta").value;
     console.log(inputFolio);
 
@@ -39,58 +41,42 @@ var getVenta = function(){
     //   })
     fetch("/venta.json")
       .then(response => { 
-        return response.json(); //cuando la promesa es resuelta, asignamos la info a la variable response
+        return response.json();
       })
       .then(json =>{ 
-        venta = JSON.stringify(json); //convertimos el objeto a una cadena de texto JSON, 
-        venta = JSON.parse(venta); //analiza el JSON, y lo transforma en objeto que se almacena en usuario
+        venta = JSON.stringify(json); 
+        venta = JSON.parse(venta); 
         var contador = 0; 
-        for (let i = 0; i < venta.length; i++) { //recorre todo el arreglo de usuario 
-            if(venta[i].idVenta == inputFolio){ 
-                console.log("credenciales correctas");
-                contador= contador + 1;
-            }
-        }
+        for (let i = 0; i < venta.length; i++) { 
+            if(venta[i].idVenta == inputFolio){
+                addTabla(venta[i],tbodyContainer);
+                contador= contador+1;  
+            }//if
+        }//for
+        totales.innerHTML = 
+                                `<label> Total Productos:</label>
+                                <label>20</label>
+                                <label>Total de Venta:</label>
+                                <label>30</label>`;
         if(contador===0){//si no hubiera ninguna coincidencia
-            console.log("credenciales incorrectas");
+            console.log("No hay ventas");
         }
     });   
 }
 
 //inyecta la tabla
-function addTabla(item, clase){
+function addTabla(item,clase){
     const itemHTML = 
-    `<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">No.</th>
-        <th scope="col">Producto</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">Precio Unitario</th>
-        <th scope="col">Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
-</div>`;
-    clase.innerHTML = itemHTML;
+    `   <div class="trenglon">
+        <tr>
+        <td scope="row">"${item.idVenta}"</td>
+        <td>"${item.producto}"</td>
+        <td>"${item.cantidad}"</td>
+        <td>"${item.precio}"</td>
+        <td>"${item.total}"</td>
+        </tr>
+        </div>
+    `;
+    clase.innerHTML += itemHTML;
   }
 
