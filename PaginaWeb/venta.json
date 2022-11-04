@@ -1,0 +1,16 @@
+[
+{
+   "idVenta": 1,
+   "producto": "Sabritas",
+   "cantidad": 2,
+   "precio": 20.00,
+   "total":2
+},
+{
+    "idVenta": 1,
+    "producto": "Cheetos",
+    "cantidad": 3,
+    "precio": 10.00,
+    "total":30.00
+}
+]
