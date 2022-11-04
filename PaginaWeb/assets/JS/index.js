@@ -1,3 +1,4 @@
+const urlUsuario ='http://localhost:8080/usuario/'//URL a donde se hace la petición
 const btniniciarSesion = document.querySelector(".btnIniciarSesion"); //obtenemos el boton del HTML
 
 var validarUsuario = function(){
@@ -6,10 +7,9 @@ var validarUsuario = function(){
     console.log(inputUsuario);
     console.log(inputContraseña);
     //validar el usuario y contraseña ingresados
-    // fetch(urlUsuario+"getAll",{
-    //     method : "get"
-    //   })
-    fetch("/usuario.json")
+    fetch(urlUsuario,{
+        method : "get"
+      })
       .then(response => { 
         return response.json(); //cuando la promesa es resuelta, asignamos la info a la variable response
       })
@@ -47,10 +47,12 @@ var getVenta = function(){
         venta = JSON.stringify(json); 
         venta = JSON.parse(venta); 
         var contador = 0; 
+        var num = 1;
         for (let i = 0; i < venta.length; i++) { 
             if(venta[i].idVenta == inputFolio){
-                addTabla(venta[i],tbodyContainer);
-                contador= contador+1;  
+                addTabla(venta[i],tbodyContainer, num);
+                contador= contador+1;
+                num = num + 1;  
             }//if
         }//for
         totales.innerHTML = 
@@ -65,11 +67,11 @@ var getVenta = function(){
 }
 
 //inyecta la tabla
-function addTabla(item,clase){
+function addTabla(item,clase,num){
     const itemHTML = 
     `   <div class="trenglon">
         <tr>
-        <td scope="row">"${item.idVenta}"</td>
+        <td scope="row">"${num}"</td>
         <td>"${item.producto}"</td>
         <td>"${item.cantidad}"</td>
         <td>"${item.precio}"</td>
