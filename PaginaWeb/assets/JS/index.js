@@ -57,9 +57,9 @@ var getVenta = function(){
         }//for
         totales.innerHTML = 
                                 `<label> Total Productos:</label>
-                                <label>20</label>
+                                <label></label>
                                 <label>Total de Venta:</label>
-                                <label>30</label>`;
+                                <label></label>`;
         if(contador===0){//si no hubiera ninguna coincidencia
             console.log("No hay ventas");
         }
